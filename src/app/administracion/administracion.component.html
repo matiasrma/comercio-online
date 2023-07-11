@@ -1,0 +1,56 @@
+<div class="container-fluid" style="background-color: #fff159; height: 60px">
+  <div class="row justify-content-between">
+    <div class="col-sm-1" >      
+      <img         
+        (click)="irAPrincipal()"
+        src="../../assets/pngwing.com.png"
+        alt="logo"
+        style="height: 50px; width: 100px; cursor: pointer;"
+      />
+    </div>
+    <div class="col-sm-3">
+      <div class="row align-items-center justify-content-end">
+        <div class="col-sm-2" style="cursor: pointer;">          
+          <span class="align-middle"><i class="bi bi-person-circle" data-bs-toggle="modal" data-bs-target="#modalLogin" style="font-size: 30px"></i></span>
+        </div>        
+        <div class="col-sm-2" style="cursor: pointer;">          
+          <span class="align-middle"><i class="bi bi-cart4" style="font-size: 30px"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+
+<div class="container-fluid" style="background-color: #fff159; height: 60px">
+  <div class="row justify-content-center">    
+    <div class="col-sm-6 text-center">
+      <p class="display-6">Comercio Online</p>      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      <div class="modal-body">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="staticEmail">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputPassword">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+  </div>
+</div>

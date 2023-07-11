@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row justify-content-center p-2">
+    <div class="col-sm-10">
+      
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="card col-sm-10 m-2 p-4">
+      <p class="h5">Cotizacion</p>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="actualizacionOnline">
+        <label class="form-check-label" for="flexCheckDefault">
+          Utilizar cotización Online: {{cotizacionOnline}}
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="!actualizacionOnline">
+        <label class="form-check-label" for="flexCheckDefault">
+          Utilizar cotización Manual: {{cotizacion}}
+        </label>
+      </div>
+      <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Cotizacion Manual USD</label>
+          <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="cotizacion" [ngModelOptions]="{ standalone: true }" [disabled]="actualizacionOnline"/>
+          <div id="emailHelp" class="form-text">
+            Cambie la cotizacion para ajustar los precios de los productos
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="guardarCotizacion()" data-bs-toggle="modal" data-bs-target="#guardadoModal">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="guardadoModal" tabindex="-1" aria-labelledby="guardadoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="guardadoModalLabel">Cotizacion actualizada exitosamente</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="!actualizacionOnline">Cotiazcion Manual: {{cotizacion}}</p>
+        <p *ngIf="actualizacionOnline">Cotiazcion Online: {{cotizacionOnline}}</p>
+      </div>
+      
+    </div>
+  </div>
+</div>
