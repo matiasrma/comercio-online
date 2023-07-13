@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { ArticuloModel } from 'src/app/models/ArticuloModel';
 import { DolarModel } from 'src/app/models/DolarModels';
 import { ArticuloService } from 'src/app/services/articulo.service';
@@ -8,16 +9,17 @@ import { DolarService } from 'src/app/services/dolar.service';
 @Component({
   selector: 'app-ver-articulo',
   templateUrl: './ver-articulo.component.html',
-  styleUrls: ['./ver-articulo.component.scss']
+  styleUrls: ['./ver-articulo.component.scss'],
 })
 export class VerArticuloComponent implements OnInit {
+
+  @ViewChild('carousel', { read: NgbCarousel, static: true })
+  public Carousel!: NgbCarousel;
 
   articulo: ArticuloModel = {} as ArticuloModel;
   cotizacion: number = 0;
   dolar: DolarModel[] = [];  
   actualizacionOnline: boolean = true;
-
-  imagenElegida: null | number = null;
 
   constructor(
     private DolarService: DolarService,
@@ -69,8 +71,7 @@ export class VerArticuloComponent implements OnInit {
   }
 
   eligirImagen(i: number){
-    this.imagenElegida = i;
-    console.log(i);
+    this.Carousel.select(`ngb-slide-${i}`);
   }
 
 }

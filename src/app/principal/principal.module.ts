@@ -6,6 +6,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { ArticuloComponent } from './articulo/articulo.component';
 import { FormsModule } from '@angular/forms';
 import { VerArticuloComponent } from './ver-articulo/ver-articulo.component';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -19,7 +20,8 @@ import { VerArticuloComponent } from './ver-articulo/ver-articulo.component';
   imports: [
     CommonModule,
     FormsModule,
-    PrincipalRoutingModule
+    PrincipalRoutingModule,
+    NgbCarouselModule
   ]
 })
 export class PrincipalModule { }

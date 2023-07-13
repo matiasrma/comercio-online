@@ -1,10 +1,10 @@
 .imagenGrande {
     object-fit: contain;
-    height: 400px;
     width: auto;
+    height: 400px;
 }
 .imagenChica {
     object-fit: contain;
-    height: 100px;
-    width: auto;
+    height: auto;
+    width: 150px;
 }

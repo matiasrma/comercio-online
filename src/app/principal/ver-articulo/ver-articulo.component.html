@@ -8,26 +8,33 @@
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-12">          
-          <div id="carouselExampleFade" class="carousel slide carousel-fade">
-            <ol class="carousel-indicators">
-              <li *ngFor="let imagen of articulo.imagenes; let i = index" [class.active]="i === 0" data-target="#carousel" [attr.data-bs-slide-to]="i" data-bs-interval="2000"></li>
-            </ol>
-  
-            <div class="carousel-inner">
-              <div class="carousel-item" *ngFor="let imagen of articulo.imagenes; let i = index" [class.active]="i === 0" >
-                <img class="d-block w-100 imagenGrande" [src]="imagen" alt="Imagen {{ i }}">
+          <ngb-carousel #carousel class="carousel-dark">
+            <ng-template ngbSlide *ngFor="let imagen of articulo.imagenes; let i = index;">              
+              <div>
+                <img [src]="imagen" class="d-block w-100 imagenGrande" />
               </div>
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
+              <div class="carousel-caption">
+              </div>
+            </ng-template>
+            <!-- <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img [src]="images[1]" alt="Random second slide" />
+              </div>
+              <div class="carousel-caption">
+                <h3>Second slide label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img [src]="images[2]" alt="Random third slide" />
+              </div>
+              <div class="carousel-caption">
+                <h3>Third slide label</h3>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+              </div>
+            </ng-template> -->
+          </ngb-carousel>
         </div>        
       </div>      
     </div>
