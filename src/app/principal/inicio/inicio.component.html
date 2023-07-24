@@ -26,4 +26,17 @@
   </div>
   <app-articulo [listaArticulos]="listaArticulos" ></app-articulo> 
 </div>
-
+<ngb-toast class="toast" #toast [autohide]="false">
+  <div class="text-center">
+    <p class="link" (click)="hideToast()" style="cursor: pointer; width: 5px;">
+      <strong>X</strong>
+    </p>
+    <div>
+      Bienvenido!      
+    </div>
+    <div>
+      Si quieres un recorrido por esta web:
+    </div>
+    <button class="btn btn-success">Click Aqui!</button>
+  </div>
+</ngb-toast>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { ArticuloModel } from 'src/app/models/ArticuloModel';
 import { DolarModel } from 'src/app/models/DolarModels';
 import { ArticuloService } from 'src/app/services/articulo.service';
@@ -10,6 +11,9 @@ import { DolarService } from 'src/app/services/dolar.service';
   styleUrls: ['./inicio.component.scss']
 })
 export class InicioComponent implements OnInit{
+
+  @ViewChild('toast', { read: NgbToast, static: true })
+  public toast!: NgbToast;
 
   listaArticulos: ArticuloModel[] = [];
 
@@ -24,6 +28,7 @@ export class InicioComponent implements OnInit{
 
   ngOnInit(){
     this.getListaArticulos();    
+    //this.toast.show();
   }
 
   async getListaArticulos(){    
@@ -72,6 +77,10 @@ export class InicioComponent implements OnInit{
       console.log(e);
       this.obtenerCotizacionManual();
     }    
+  }
+
+  hideToast(){
+    this.toast.hide();
   }
 
 

@@ -13,14 +13,14 @@ import { DolarService } from 'src/app/services/dolar.service';
 })
 export class VerArticuloComponent implements OnInit {
 
-  @ViewChild('carousel', { read: NgbCarousel, static: true })
-  public Carousel!: NgbCarousel;
+  @ViewChild('carousel')
+  public Carousel: NgbCarousel = {} as NgbCarousel;
 
   articulo: ArticuloModel = {} as ArticuloModel;
   cotizacion: number = 0;
   dolar: DolarModel[] = [];  
   actualizacionOnline: boolean = true;
-
+  
   constructor(
     private DolarService: DolarService,
     private articuloService: ArticuloService,
@@ -70,8 +70,13 @@ export class VerArticuloComponent implements OnInit {
     }    
   }
 
+  ngOnChanges(){
+    //this.Carousel.select(`ngb-slide-${this.articuloImagenIndex}`);        
+  }
+
   eligirImagen(i: number){
-    this.Carousel.select(`ngb-slide-${i}`);
+    this.Carousel.select(`slideId_${i}`);   
+    
   }
 
 }
