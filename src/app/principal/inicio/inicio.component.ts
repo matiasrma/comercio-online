@@ -18,7 +18,7 @@ export class InicioComponent implements OnInit{
 
   @ViewChild('toastCarrito', { read: NgbToast, static: true})
   public toastCarrito!: NgbToast;
-  showToastCarrito: boolean = true;
+  showToastCarrito: boolean = false;
 
   listaArticulos: ArticuloModel[] = [];
 
