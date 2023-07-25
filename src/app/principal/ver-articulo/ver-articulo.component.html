@@ -24,10 +24,25 @@
       <p class="display-6">{{articulo.nombre}}</p>
     </div>
     <div class="col-sm-3 text-end">
-      <p class="display-5">${{articulo.precio}}</p>
+      <div class="row">
+        <p class="display-5">${{articulo.precioPesos}}</p>
+      </div>
+      <div class="row">
+        <p class="display-5">Stock: {{articulo.stock}}</p>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-primary" (click)="agregarAlCarrito()">Agregar al Carrito</button>
+      </div>
     </div>
   </div>
   <div class="row">
     <p class="display-5">{{articulo.descripcion}}</p>
   </div>
 </div>
+<ngb-toast #toastCarrito 
+class="toast-container position-absolute end-0" 
+header="Carrito" 
+style="top: 60px;"
+*ngIf="carrito.length > 0">
+  {{mensajeCarrito}}
+</ngb-toast>

@@ -21,7 +21,7 @@ import { NgbCarouselModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     PrincipalRoutingModule,
     NgbCarouselModule,
-    NgbToastModule
+    NgbToastModule,
   ]
 })
 export class PrincipalModule { }

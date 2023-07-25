@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarousel, NgbPopover, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { ArticuloModel } from 'src/app/models/ArticuloModel';
+import { CarritoModel } from 'src/app/models/CarritoModel';
 import { DolarModel } from 'src/app/models/DolarModels';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { DolarService } from 'src/app/services/dolar.service';
@@ -16,10 +17,16 @@ export class VerArticuloComponent implements OnInit {
   @ViewChild('carousel')
   public Carousel: NgbCarousel = {} as NgbCarousel;
 
+  @ViewChild('toastCarrito', { read: NgbToast, static: true})
+  public toastCarrito!: NgbToast;
+
   articulo: ArticuloModel = {} as ArticuloModel;
   cotizacion: number = 0;
   dolar: DolarModel[] = [];  
   actualizacionOnline: boolean = true;
+
+  carrito: CarritoModel[] = [];
+  mensajeCarrito: string = "";
   
   constructor(
     private DolarService: DolarService,
@@ -33,12 +40,14 @@ export class VerArticuloComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArticulo();
+    //this.toastCarrito.hide();
+    this.obtenerCarrito();
   }
 
   async getArticulo(){
     await this.obtenerCotizacion();
     this.articulo = this.articuloService.getArticulo(this.articulo.codigo);
-    this.articulo.precio *= this.cotizacion;
+    this.articulo.precioPesos = this.articulo.precioUSD * this.cotizacion;
   }
 
   async obtenerCotizacion(){
@@ -70,13 +79,30 @@ export class VerArticuloComponent implements OnInit {
     }    
   }
 
-  ngOnChanges(){
-    //this.Carousel.select(`ngb-slide-${this.articuloImagenIndex}`);        
+  eligirImagen(i: number){
+    this.Carousel.select(`slideId_${i}`);       
   }
 
-  eligirImagen(i: number){
-    this.Carousel.select(`slideId_${i}`);   
-    
+  agregarAlCarrito(){
+    this.carrito.push({
+      codigo: this.articulo.codigo,
+      cantidad: 1
+    });
+    this.guardarCarrito();
+    this.mensajeCarrito = "Ariticulo agregado al carrito!";  
+  }
+
+  guardarCarrito(){
+    localStorage.setItem("Carrito", JSON.stringify(this.carrito));
+  }
+
+  obtenerCarrito(){
+    let carritoStorage = localStorage.getItem("Carrito");
+    if (carritoStorage) { 
+      console.log(carritoStorage);      
+      this.carrito = JSON.parse(carritoStorage);    
+      this.mensajeCarrito = "Tienes articulos en el carrito!";  
+    }
   }
 
 }
