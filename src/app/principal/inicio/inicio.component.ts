@@ -18,6 +18,7 @@ export class InicioComponent implements OnInit{
 
   @ViewChild('toastCarrito', { read: NgbToast, static: true})
   public toastCarrito!: NgbToast;
+  showToastCarrito: boolean = true;
 
   listaArticulos: ArticuloModel[] = [];
 
@@ -95,6 +96,7 @@ export class InicioComponent implements OnInit{
     if (carritoStorage) { 
       console.log(carritoStorage);      
       this.carrito = JSON.parse(carritoStorage);          
+      this.showToastCarrito = true;
     }
   }
 

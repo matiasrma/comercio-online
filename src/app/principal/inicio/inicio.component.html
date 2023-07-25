@@ -40,7 +40,8 @@
     <button class="btn btn-success">Click Aqui!</button>
   </div>
 </ngb-toast>
-<ngb-toast #toastCarrito class="toast-container position-absolute end-0" header="Carrito" style="top: 60px;"
-*ngIf="carrito.length > 0">
+<ngb-toast #toastCarrito class="position-absolute end-0" header="Carrito" style="top: 0px; z-index: 5;"
+(hidden)="showToastCarrito=false"
+*ngIf="showToastCarrito">
   Tienes articulos en el carrito!
 </ngb-toast>

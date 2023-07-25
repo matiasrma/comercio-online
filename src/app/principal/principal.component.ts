@@ -14,6 +14,7 @@ export class PrincipalComponent implements OnInit{
   
     usuario: UsuarioModel = {usuario: "admin", contrasenia: "admin987"} as UsuarioModel;
     respuesta: string = "";
+    session: boolean = false;
 
     constructor(
         private LoginService: LoginService,
@@ -24,23 +25,38 @@ export class PrincipalComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        
+        this.getSession();
     }
 
     irAPrincipal(){
         this.router.navigate(['Principal/']);
     }
 
+    getSession(){
+        let sessionStorage = localStorage.getItem("SessionComercio");
+        if (sessionStorage){
+            this.session = sessionStorage == 'true';
+        }
+    }
+
     login() {
         let loginOK = this.LoginService.Login(this.usuario.usuario, this.usuario.contrasenia);
         this.respuesta = "Ingresando"
         if (loginOK){       
-            this.router.navigate(['Administracion']);
+            //this.router.navigate(['Administracion']);
+            this.session = true;
+            localStorage.setItem("SessionComercio", 'true')
             this.modalService.dismissAll();
         } else {
             this.respuesta = "Error de login";
         }
 
+    }
+
+    loguot(){
+        this.session = false;
+        localStorage.removeItem("Session");
+        console.log(this.session)
     }
 
     open(content: any){

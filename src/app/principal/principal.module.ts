@@ -7,6 +7,7 @@ import { ArticuloComponent } from './articulo/articulo.component';
 import { FormsModule } from '@angular/forms';
 import { VerArticuloComponent } from './ver-articulo/ver-articulo.component';
 import { NgbCarouselModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarritoComponent } from './carrito/carrito.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NgbCarouselModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
     PrincipalComponent,
     InicioComponent,
     ArticuloComponent,
-    VerArticuloComponent
+    VerArticuloComponent,
+    CarritoComponent
   ],
   imports: [
     CommonModule,

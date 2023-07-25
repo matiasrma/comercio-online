@@ -1,0 +1,51 @@
+<div *ngFor="let art of listaArticulos">
+  <div class="card container p-2 my-2">
+    <div class="row">
+      <div class="col-sm-4">
+        <ngb-carousel #carousel class="carousel-dark" [showNavigationArrows]="false" [showNavigationIndicators]="false">
+          <ng-template ngbSlide *ngFor="let imagen of art.imagenes; let i = index;" [id]="'slideId_' + i">
+            <div>
+              <img [src]="imagen" class="d-block w-100 imagenGrande" />
+            </div>
+            <div class="carousel-caption">
+            </div>
+          </ng-template>
+        </ngb-carousel>        
+      </div>
+      <div class="col-sm-8">
+        <div class="row">
+          <p class="display-5">{{ art.nombre }}</p>
+        </div>
+        <div class="row">
+          <p class="display-6">${{ art.precioUSD }}</p>
+        </div>
+      </div>
+      <div class="container p-4">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control m-2" id="nombre" [(ngModel)]="art.nombre" [ngModelOptions]="{ standalone: true }"/>
+
+        <label for="precio" class="form-label">Precio USD</label>          
+        <input type="number" class="form-control m-2" id="precio" [(ngModel)]="art.precioUSD" [ngModelOptions]="{ standalone: true }" style="max-width: 200px;"/>
+        
+        <button type="submit" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#guardadoModal" (click)="GuardarArticulo(art)">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<div class="modal fade" id="guardadoModal" tabindex="-1" aria-labelledby="guardadoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="guardadoModalLabel">Articulo guardado exitosamente</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">        
+        <p >{{respuesta}}</p> 
+      </div>      
+    </div>
+  </div>
+</div>

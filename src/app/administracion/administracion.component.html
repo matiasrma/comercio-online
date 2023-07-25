@@ -1,32 +1,37 @@
-<div class="container-fluid" style="background-color: #fff159; height: 60px">
-  <div class="row justify-content-between">
-    <div class="col-sm-1" >      
+<div class="container-fluid position-fixed" style="background-color: #fff159; height: 60px; top: 0px; z-index: 10;">
+  <div class="row">
+    <div class="col-6">      
       <img         
         (click)="irAPrincipal()"
         src="../../assets/pngwing.com.png"
         alt="logo"
         style="height: 50px; width: 100px; cursor: pointer;"
+        title="Inicio"
       />
     </div>
-    <div class="col-sm-3">
+    <div class="col-6">
       <div class="row align-items-center justify-content-end">
-        <div class="col-sm-2" style="cursor: pointer;">          
-          <span class="align-middle"><i class="bi bi-person-circle" data-bs-toggle="modal" data-bs-target="#modalLogin" style="font-size: 30px"></i></span>
+        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;">          
+          <span class="align-middle"><i class="bi bi-cart4" style="font-size: 30px" routerLink="../Principal/Carrito" title="Carrito"></i></span>
         </div>        
-        <div class="col-sm-2" style="cursor: pointer;">          
-          <span class="align-middle"><i class="bi bi-cart4" style="font-size: 30px"></i></span>
+        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;">          
+          <span class="align-middle"><i class="bi bi-skip-backward-circle" style="font-size: 30px" routerLink="../Principal/" title="Volver"></i></span>
+        </div>
+        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;">          
+          <i class="bi bi-box-arrow-right" (click)="loguot()" style="font-size: 30px" *ngIf="session" title="Logout"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<router-outlet></router-outlet>
-
-<div class="container-fluid" style="background-color: #fff159; height: 60px">
-  <div class="row justify-content-center">    
-    <div class="col-sm-6 text-center">
-      <p class="display-6">Comercio Online</p>      
+<div style="position: relative; top: 70px;">
+  <router-outlet></router-outlet>
+  <div class="container-fluid" style="background-color: #fff159; height: 60px; z-index: 10; position: relative;">
+    <div class="row justify-content-center">    
+      <div class="col-sm-6 text-center">
+        <p class="display-6">Comercio Online</p>      
+      </div>
     </div>
   </div>
 </div>

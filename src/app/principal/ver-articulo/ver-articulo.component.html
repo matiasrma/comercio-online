@@ -40,9 +40,11 @@
   </div>
 </div>
 <ngb-toast #toastCarrito 
-class="toast-container position-absolute end-0" 
+class="position-absolute end-0" 
+*ngIf="showToastCarrito"
+(hidden)="showToastCarrito=false"
 header="Carrito" 
-style="top: 60px;"
-*ngIf="carrito.length > 0">
+style="top: 0px; z-index: 5;"
+>
   {{mensajeCarrito}}
 </ngb-toast>

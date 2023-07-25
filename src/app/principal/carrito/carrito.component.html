@@ -1,0 +1,31 @@
+<div class="container card my-2 p-3">
+  <div class="row" *ngFor="let art of listaArticulos; let i = index;">    
+    <div class="col-sm-4">      
+      <img [src]="art.imagenes[0]" alt="" class="imagenChica" />                        
+    </div>
+    <div class="col-sm-4">
+      <p class="display-6">{{art.nombre}}</p>
+    </div>
+    <div class="col-sm-3 text-end">
+      <div class="row">
+        <p class="display-6">Cantidad: {{carrito[i].cantidad}}</p>
+      </div>
+      <div class="row">
+        <p class="display-6">${{art.precioPesos * carrito[i].cantidad}}</p>
+      </div>
+      <div class="row">        
+      </div>
+    </div>
+  </div>  
+</div>
+<div class="container card my-2 p-3">
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <p class="display-6">Total Final:</p>
+    </div>
+    <div class="col-sm-4">      
+      <p class="display-6">${{totalFinal}}</p>      
+    </div>
+  </div>
+</div>

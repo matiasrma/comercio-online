@@ -24,10 +24,15 @@ export class InicioComponent implements OnInit {
 
   async obtenerCotizacion(){
     let actualizacion = localStorage.getItem("actualizacionOnline");
-    this.actualizacionOnline = actualizacion == 'true';
+    this.actualizacionOnline = actualizacion === 'true';
+    console.log(this.actualizacionOnline);
     
     this.obtenerCotizacionManual();
     await this.obtenerCotizacionOnline();
+  }
+
+  cambioActualizacion(){
+    this.actualizacionOnline = !this.actualizacionOnline;
   }
 
   obtenerCotizacionManual(){

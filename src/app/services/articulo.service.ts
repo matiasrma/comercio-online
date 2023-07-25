@@ -6,7 +6,7 @@ import { ArticuloModel } from '../models/ArticuloModel';
 })
 export class ArticuloService {
 
-  lista: ArticuloModel[] = [
+  private lista: ArticuloModel[] = [
     { 
       codigo: "Cod-1",
       precioUSD: 100,
@@ -40,6 +40,15 @@ export class ArticuloService {
     let index = this.lista.findIndex(prod => prod.codigo == codigo);
 
     return this.lista[index];
+  }
+
+  async setArticulo(articulo: ArticuloModel): Promise<string>{
+
+    let index = this.lista.findIndex(prod => prod.codigo == articulo.codigo);
+
+    this.lista[index] = articulo;
+
+    return "Se guardo Correctamente"
   }
 
 }

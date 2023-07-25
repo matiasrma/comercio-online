@@ -8,26 +8,20 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 import { DolarService } from 'src/app/services/dolar.service';
 
 @Component({
-  selector: 'app-ver-articulo',
-  templateUrl: './ver-articulo.component.html',
-  styleUrls: ['./ver-articulo.component.scss'],
+  selector: 'app-carrito',
+  templateUrl: './carrito.component.html',
+  styleUrls: ['./carrito.component.scss'],
 })
-export class VerArticuloComponent implements OnInit {
-
-  @ViewChild('carousel')
-  public Carousel: NgbCarousel = {} as NgbCarousel;  
-
-  @ViewChild('toastCarrito', { read: NgbToast, static: true})
-  public toastCarrito!: NgbToast;
-  showToastCarrito: boolean = false;
-
+export class CarritoComponent implements OnInit {
+  
   articulo: ArticuloModel = {} as ArticuloModel;
   cotizacion: number = 0;
   dolar: DolarModel[] = [];  
   actualizacionOnline: boolean = true;
 
-  carrito: CarritoModel[] = [];
-  mensajeCarrito: string = "";
+  carrito: CarritoModel[] = [];  
+  listaArticulos: ArticuloModel[] = [];
+  totalFinal: number = 0;
   
   constructor(
     private DolarService: DolarService,
@@ -40,15 +34,18 @@ export class VerArticuloComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getArticulo();
-    //this.toastCarrito.hide();
     this.obtenerCarrito();
   }
 
-  async getArticulo(){
+  async getArticulos(){
     await this.obtenerCotizacion();
-    this.articulo = this.articuloService.getArticulo(this.articulo.codigo);
-    this.articulo.precioPesos = this.articulo.precioUSD * this.cotizacion;
+    this.carrito.forEach(element => {
+      this.articulo = this.articuloService.getArticulo(element.codigo);
+      this.articulo.precioPesos = this.articulo.precioUSD * this.cotizacion;
+      this.listaArticulos.push(this.articulo);
+      this.totalFinal += this.articulo.precioPesos * element.cantidad;
+    })
+    
   }
 
   async obtenerCotizacion(){
@@ -80,29 +77,6 @@ export class VerArticuloComponent implements OnInit {
     }    
   }
 
-  eligirImagen(i: number){
-    this.Carousel.select(`slideId_${i}`);       
-  }
-
-  agregarAlCarrito(){
-    let nuevo: CarritoModel = {
-      codigo: this.articulo.codigo,
-      cantidad: 1
-    };
-
-    let indexCodigo = this.carrito.findIndex(element => element.codigo == nuevo.codigo);
-
-    if (indexCodigo >= 0){
-      this.carrito[indexCodigo].cantidad += 1;
-    } else {
-      this.carrito.push(nuevo);
-    }
-    
-    this.guardarCarrito();
-    this.mensajeCarrito = "Ariticulo agregado al carrito!";  
-    this.showToastCarrito = true;
-  }
-
   guardarCarrito(){
     localStorage.setItem("Carrito", JSON.stringify(this.carrito));
   }
@@ -112,9 +86,9 @@ export class VerArticuloComponent implements OnInit {
     if (carritoStorage) { 
       console.log(carritoStorage);      
       this.carrito = JSON.parse(carritoStorage);    
-      this.mensajeCarrito = "Tienes articulos en el carrito!";  
-      this.showToastCarrito = true;
+      this.getArticulos();
     }
+
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background-color: #fff159; height: 60px">
+<div class="container-fluid position-fixed" style="background-color: #fff159; height: 60px; top: 0px; z-index: 10;">
   <div class="row">
     <div class="col-6">      
       <img         
@@ -10,25 +10,33 @@
     </div>
     <div class="col-6">
       <div class="row align-items-center justify-content-end">
-        <div class="col-4 col-sm-2 col-lg-1" style="cursor: pointer;">          
-          <span class="align-middle"><i class="bi bi-person-circle" (click)="open(content)" style="font-size: 30px"></i></span>
-        </div>        
-        <div #CarritoTarget class="col-4 col-sm-2 col-lg-1" style="cursor: pointer;">          
-          <span class="align-middle"><i class="bi bi-cart4" style="font-size: 30px"></i></span>
+        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;">          
+          <span class="align-middle"><i class="bi bi-cart4" style="font-size: 30px" routerLink="Carrito" title="Carrito"></i></span>
+        </div>
+        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;">          
+          <span class="align-middle">
+            <i class="bi bi-person-circle" (click)="open(content)" style="font-size: 30px" *ngIf="!session" title="Login"></i>
+            <i class="bi bi-sliders2" routerLink="/Administracion" style="font-size: 30px" *ngIf="session" title="Administrar"></i>
+          </span>          
+        </div>                
+        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;">          
+          <i class="bi bi-box-arrow-right" (click)="loguot()" style="font-size: 30px" *ngIf="session" title="Logout"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
-<router-outlet></router-outlet>
-
-<div class="container-fluid" style="background-color: #fff159; height: 60px">
-  <div class="row justify-content-center">    
-    <div class="col-sm-6 text-center">
-      <p class="display-6">Comercio Online</p>      
+<div style="position: relative; top: 70px;">
+  <router-outlet></router-outlet>
+  <div class="container-fluid" style="background-color: #fff159; height: 60px; z-index: 10; position: relative;">
+    <div class="row justify-content-center">    
+      <div class="col-sm-6 text-center">
+        <p class="display-6">Comercio Online</p>      
+      </div>
     </div>
   </div>
 </div>
+
 
 <ng-template #content let-modal>
   <div class="modal-content">      

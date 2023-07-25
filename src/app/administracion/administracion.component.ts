@@ -12,6 +12,7 @@ import { LoginService } from "../services/login.service";
 export class AdministracionComponent implements OnInit{
 
     usuario: UsuarioModel = {} as UsuarioModel;
+    session: boolean = false;
 
     constructor(
         private LoginService: LoginService,
@@ -21,18 +22,28 @@ export class AdministracionComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        this.getSession();        
     }
 
     irAPrincipal(){
         this.router.navigate(['Principal/']);
     }
 
-    login() {
-        let loginOK = this.LoginService.Login(this.usuario.usuario, this.usuario.contrasenia);
-        
-        if (loginOK){
-            this.router.navigate([]);
+    loguot(){
+        this.session = false;
+        localStorage.removeItem("SessionComercio");
+        console.log(this.session);
+        this.router.navigate([''])
+    }
+
+    getSession(){
+        let sessionStorage = localStorage.getItem("SessionComercio");
+        if (sessionStorage){
+            this.session = sessionStorage == 'true';
         }
+        console.log(sessionStorage);
+        console.log(this.session);
+        
     }
 
     
