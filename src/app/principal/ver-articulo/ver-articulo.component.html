@@ -31,7 +31,7 @@
         <p class="display-5">Stock: {{articulo.stock}}</p>
       </div>
       <div class="row">
-        <button type="button" class="btn btn-primary" (click)="agregarAlCarrito()">Agregar al Carrito</button>
+        <button type="button" class="btn btn-primary" (click)="agregarAlCarrito()" [disabled]="articulo.stock == 0">Agregar al Carrito</button>
       </div>
     </div>
   </div>

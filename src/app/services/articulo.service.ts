@@ -27,6 +27,7 @@ export class ArticuloService {
      }
   ];
   
+  private actualizado: boolean = false;
 
   constructor() { }
 
@@ -35,7 +36,7 @@ export class ArticuloService {
     return this.lista;
   }
 
-  getArticulo(codigo: string): ArticuloModel{
+  async getArticulo(codigo: string): Promise<ArticuloModel>{
 
     let index = this.lista.findIndex(prod => prod.codigo == codigo);
 
@@ -49,6 +50,16 @@ export class ArticuloService {
     this.lista[index] = articulo;
 
     return "Se guardo Correctamente"
+  }
+
+  async setStock(codigo: string, cantidad: number){
+    let index = this.lista.findIndex(element => element.codigo == codigo);
+    this.lista[index].stock = cantidad;    
+    this.actualizado = true;
+  }
+
+  getActualizado(){
+    return this.actualizado;
   }
 
 }

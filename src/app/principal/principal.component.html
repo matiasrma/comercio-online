@@ -19,8 +19,8 @@
             <i class="bi bi-sliders2" routerLink="/Administracion" style="font-size: 30px" *ngIf="session" title="Administrar"></i>
           </span>          
         </div>                
-        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;">          
-          <i class="bi bi-box-arrow-right" (click)="loguot()" style="font-size: 30px" *ngIf="session" title="Logout"></i>
+        <div class="col-4 col-sm-2 col-lg-1 m-2" style="cursor: pointer;" *ngIf="session">          
+          <i class="bi bi-box-arrow-right" (click)="loguot()" style="font-size: 30px" title="Logout"></i>
         </div>
       </div>
     </div>

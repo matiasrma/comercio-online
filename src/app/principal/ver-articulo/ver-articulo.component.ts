@@ -42,13 +42,13 @@ export class VerArticuloComponent implements OnInit {
   ngOnInit(): void {
     this.getArticulo();
     //this.toastCarrito.hide();
-    this.obtenerCarrito();
   }
 
   async getArticulo(){
     await this.obtenerCotizacion();
-    this.articulo = this.articuloService.getArticulo(this.articulo.codigo);
+    await this.articuloService.getArticulo(this.articulo.codigo).then(data => this.articulo = data);
     this.articulo.precioPesos = this.articulo.precioUSD * this.cotizacion;
+    this.obtenerCarrito();
   }
 
   async obtenerCotizacion(){
@@ -84,7 +84,7 @@ export class VerArticuloComponent implements OnInit {
     this.Carousel.select(`slideId_${i}`);       
   }
 
-  agregarAlCarrito(){
+  async agregarAlCarrito(){
     let nuevo: CarritoModel = {
       codigo: this.articulo.codigo,
       cantidad: 1
@@ -98,7 +98,10 @@ export class VerArticuloComponent implements OnInit {
       this.carrito.push(nuevo);
     }
     
-    this.guardarCarrito();
+    this.guardarCarrito();    
+    this.articulo.stock -= 1;
+    await this.articuloService.setStock(this.articulo.codigo, this.articulo.stock);
+
     this.mensajeCarrito = "Ariticulo agregado al carrito!";  
     this.showToastCarrito = true;
   }
@@ -114,7 +117,19 @@ export class VerArticuloComponent implements OnInit {
       this.carrito = JSON.parse(carritoStorage);    
       this.mensajeCarrito = "Tienes articulos en el carrito!";  
       this.showToastCarrito = true;
+      this.ajustarStock();
     }
+  }
+
+  async ajustarStock(){
+    if (!this.articuloService.getActualizado()){
+      let listaArticulos = await this.articuloService.getListaArticulos();      
+      this.carrito.forEach(async element => {        
+        let index = listaArticulos.findIndex(articulo => articulo.codigo == element.codigo );
+        listaArticulos[index].stock -= element.cantidad;
+        await this.articuloService.setStock(element.codigo, listaArticulos[index].stock);
+      })      
+    }    
   }
 
 }

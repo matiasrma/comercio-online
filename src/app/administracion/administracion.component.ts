@@ -33,7 +33,7 @@ export class AdministracionComponent implements OnInit{
         this.session = false;
         localStorage.removeItem("SessionComercio");
         console.log(this.session);
-        this.router.navigate([''])
+        this.router.navigate(['']);
     }
 
     getSession(){

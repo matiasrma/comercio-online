@@ -14,7 +14,6 @@ import { DolarService } from 'src/app/services/dolar.service';
 })
 export class CarritoComponent implements OnInit {
   
-  articulo: ArticuloModel = {} as ArticuloModel;
   cotizacion: number = 0;
   dolar: DolarModel[] = [];  
   actualizacionOnline: boolean = true;
@@ -25,12 +24,9 @@ export class CarritoComponent implements OnInit {
   
   constructor(
     private DolarService: DolarService,
-    private articuloService: ArticuloService,
-    private _activatedRoute: ActivatedRoute
+    private articuloService: ArticuloService    
     ) {
-      _activatedRoute.queryParamMap.subscribe( params => {
-        this.articulo.codigo = params.get('codigo')!;
-      });
+      
   }
 
   ngOnInit(): void {
@@ -39,11 +35,11 @@ export class CarritoComponent implements OnInit {
 
   async getArticulos(){
     await this.obtenerCotizacion();
-    this.carrito.forEach(element => {
-      this.articulo = this.articuloService.getArticulo(element.codigo);
-      this.articulo.precioPesos = this.articulo.precioUSD * this.cotizacion;
-      this.listaArticulos.push(this.articulo);
-      this.totalFinal += this.articulo.precioPesos * element.cantidad;
+    this.carrito.forEach(async element => {
+      let articulo = await this.articuloService.getArticulo(element.codigo);
+      articulo.precioPesos = articulo.precioUSD * this.cotizacion;
+      this.listaArticulos.push(articulo);
+      this.totalFinal += articulo.precioPesos * element.cantidad;            
     })
     
   }
@@ -77,18 +73,40 @@ export class CarritoComponent implements OnInit {
     }    
   }
 
-  guardarCarrito(){
+  async guardarCarrito(codigo: string, cantidad: number){
+    let indexCarrito = this.carrito.findIndex(element => element.codigo == codigo);
+    this.carrito[indexCarrito].cantidad += cantidad;
+    console.log(this.carrito[indexCarrito]);
+    
+    let articulo = await this.articuloService.getArticulo(codigo);
+    articulo.stock -= cantidad;
+    console.log(articulo);
+    
     localStorage.setItem("Carrito", JSON.stringify(this.carrito));
+    await this.articuloService.setStock(codigo, articulo.stock);
+    console.log(cantidad)
   }
 
-  obtenerCarrito(){
+  async obtenerCarrito(){
     let carritoStorage = localStorage.getItem("Carrito");
     if (carritoStorage) { 
       console.log(carritoStorage);      
       this.carrito = JSON.parse(carritoStorage);    
-      this.getArticulos();
+      await this.ajustarStock();
+      await this.getArticulos();      
     }
 
+  }
+
+  async ajustarStock(){
+    if (!this.articuloService.getActualizado()){
+      let listaArticulos = await this.articuloService.getListaArticulos();      
+      this.carrito.forEach(async element => {        
+        let index = listaArticulos.findIndex(articulo => articulo.codigo == element.codigo );
+        listaArticulos[index].stock -= element.cantidad;
+        await this.articuloService.setStock(element.codigo, listaArticulos[index].stock);
+      })      
+    }    
   }
 
 }
