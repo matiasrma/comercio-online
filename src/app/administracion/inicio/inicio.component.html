@@ -8,13 +8,13 @@
     <div class="card col-sm-10 m-2 p-4">
       <p class="h5">Cotizacion</p>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" name="cotizacion" id="flexCheckDefault" (click)="cambioActualizacion()" [(ngModel)]="actualizacionOnline">
+        <input class="form-check-input" type="checkbox" name="cotizacion" id="flexCheckDefault" checked (click)="cambioActualizacion()" [(ngModel)]="actualizacionOnline">
         <label class="form-check-label" for="flexCheckDefault">
           Utilizar cotización Online: {{cotizacionOnline}}
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" name="cotizacion" id="flexCheckDefault" checked (click)="cambioActualizacion()" [(ngModel)]="!actualizacionOnline">
+        <input class="form-check-input" type="checkbox" name="cotizacion" id="flexCheckDefault" checked (click)="cambioActualizacion()" [(ngModel)]="!actualizacionOnline">
         <label class="form-check-label" for="flexCheckDefault">
           Utilizar cotización Manual: {{cotizacion}}
         </label>

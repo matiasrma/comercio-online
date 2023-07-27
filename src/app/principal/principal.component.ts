@@ -55,7 +55,7 @@ export class PrincipalComponent implements OnInit{
 
     loguot(){
         this.session = false;
-        localStorage.removeItem("Session");
+        localStorage.removeItem("SessionComercio");
         console.log(this.session)
     }
 
