@@ -8,7 +8,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class DolarService {
 
-  url: string = "https://dolar-api-argentina.vercel.app/v1/dolares";
+  url: string = "https://dolarapi.com/v1/dolares/blue";
 
   respuesta: any = null;
 
@@ -16,7 +16,7 @@ export class DolarService {
     private http: HttpClient
   ) { }
 
-  async obtenerCotizacion(): Promise<DolarModel[]> {
+  async obtenerCotizacion(): Promise<DolarModel> {
 
     const data$ = this.http.get<DolarModel>(this.url, { params: { responseType: 'json' } });
 

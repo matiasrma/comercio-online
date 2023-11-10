@@ -15,7 +15,7 @@ import { DolarService } from 'src/app/services/dolar.service';
 export class CarritoComponent implements OnInit {
   
   cotizacion: number = 0;
-  dolar: DolarModel[] = [];  
+  dolar: DolarModel = {} as DolarModel;  
   actualizacionOnline: boolean = true;
 
   carrito: CarritoModel[] = [];  
@@ -64,8 +64,7 @@ export class CarritoComponent implements OnInit {
     
     try {
       await this.DolarService.obtenerCotizacion().then(data => this.dolar = data);
-      let indexBlue = this.dolar.findIndex(dlr => dlr.nombre == 'Blue');
-      this.cotizacion = this.dolar[indexBlue].compra;
+      this.cotizacion = this.dolar.compra;
       console.log(this.cotizacion);    
     } catch(e: any) {
       console.log(e);

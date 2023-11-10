@@ -12,7 +12,7 @@ export class InicioComponent implements OnInit {
   cotizacion: number = 0;
   cotizacionOnline: number = 0;
   actualizacionOnline: boolean = true;
-  dolar: DolarModel[] = [];  
+  dolar: DolarModel = {} as DolarModel;  
 
   constructor(
     private DolarService: DolarService,
@@ -43,9 +43,9 @@ export class InicioComponent implements OnInit {
   async obtenerCotizacionOnline(){
     
     try {
-      await this.DolarService.obtenerCotizacion().then(data => this.dolar = data);
-      let indexBlue = this.dolar.findIndex(usd => usd.nombre == 'Blue');
-      this.cotizacionOnline = this.dolar[indexBlue].compra;
+      await this.DolarService.obtenerCotizacion().then(data => this.dolar = data);      
+      this.cotizacionOnline = this.dolar.compra;
+      console.log(this.dolar);      
     } catch(e: any) {
       console.log(e);      
     }    
